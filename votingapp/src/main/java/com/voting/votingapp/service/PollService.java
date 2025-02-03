@@ -9,19 +9,22 @@ import com.voting.votingapp.repository.PollRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @AllArgsConstructor
 public class PollService {
 
     private PollRepository pollRepository;
+    private static final Logger logger = Logger.getLogger(PollService.class.getName());
 
-    public Poll createPoll(PollDto pollDto) {
+    public Poll createPoll(PollDto pollDto) throws DataValidationException {
+        pollDto.validate();
         Poll poll =  pollDto.toEntity();
         poll.setQuestion(pollDto.getQuestion());
         poll.setOptions(pollDto.getOptions());
+        logger.info("Options: " + pollDto.getOptions());
         return pollRepository.save(poll);
     }
 

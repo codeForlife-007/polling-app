@@ -1,21 +1,25 @@
 package com.voting.votingapp.dto;
 
+import com.voting.votingapp.exception.DataValidationException;
 import com.voting.votingapp.model.OptionVote;
 import com.voting.votingapp.model.Poll;
+import com.voting.votingapp.utils.Missing;
 import lombok.Data;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class PollDto {
 
-    @NotEmpty(message = "question cannot be empty")
     private String question;
-    @Valid
     private List<OptionVote> options = new ArrayList<>();
+
+    public void validate() throws DataValidationException {
+        if (Missing.string(question)) {
+            throw new DataValidationException("question is missing");
+        }
+    }
 
     // method to convert dto to entity
     public Poll toEntity() {

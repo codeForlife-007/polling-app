@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +21,7 @@ public class PollController {
     private PollService pollService;
 
     @PostMapping
-    public ResponseEntity<Poll> createPoll(@Valid @RequestBody PollDto pollDto) throws DataValidationException {
+    public ResponseEntity<Poll> createPoll(@RequestBody PollDto pollDto) throws DataValidationException {
         return ResponseEntity.ok(pollService.createPoll(pollDto));
     }
 
