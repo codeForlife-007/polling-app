@@ -41,12 +41,12 @@ public class PollService {
         List<OptionVote> options = poll.getOptions();
 
         // If index for vote is not valid, throw error
-        if (optionIndex <= 0 || optionIndex > options.size() + 1) {
+        if (optionIndex < 0 || optionIndex >= options.size()) {
             throw new DataValidationException("Invalid option index", "size exceeds than available options");
         }
 
         // Get Selected Option
-        OptionVote selectedOption = options.get(optionIndex - 1);
+        OptionVote selectedOption = options.get(optionIndex);
 
         // Increment vote for selected option
         selectedOption.setVoteCount(selectedOption.getVoteCount() + 1);

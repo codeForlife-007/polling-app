@@ -21,5 +21,6 @@ public class Poll {
     private String question;
 
     @ElementCollection
+    @Column(name = "options", nullable = false)
     private List<OptionVote> options = new ArrayList<>();
 }
